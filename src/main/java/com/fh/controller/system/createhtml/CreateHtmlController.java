@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +43,7 @@ public class CreateHtmlController extends BaseController {
 	
 	@Resource(name="informationService")
 	private InformationManager informationService;
-	@Resource(name="imageService")
+	@Autowired
 	private ImageManager imageService;
 	@Resource(name="ourbusinessService")
 	private OurBusinessManager ourbusinessService;

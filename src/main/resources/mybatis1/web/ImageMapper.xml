@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ImageMapper">
-	
-	<!--表名 -->
+<mapper namespace="com.fh.dao.ImageMapper">
+  <resultMap id="BaseResultMap" type="com.fh.entity.Image">
+    <id column="IMAGE_ID" jdbcType="VARCHAR" property="imageId" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="IMGURL" jdbcType="VARCHAR" property="imgurl" />
+    <result column="TOURL" jdbcType="VARCHAR" property="tourl" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="FORDER" jdbcType="VARCHAR" property="forder" />
+    <result column="BZ" jdbcType="VARCHAR" property="bz" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    IMAGE_ID, TITLE, IMGURL, TOURL, TYPE, FORDER, BZ
+  </sql>
+  <!--表名 -->
 	<sql id="tableName">
 		WEB_IMAGE
 	</sql>
-	
 	<!-- 字段 -->
 	<sql id="Field">
 		TITLE,	
@@ -17,7 +27,6 @@
 		BZ,	
 		IMAGE_ID
 	</sql>
-	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{TITLE},	
@@ -28,6 +37,24 @@
 		#{BZ},	
 		#{IMAGE_ID}
 	</sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from web_image
+    where IMAGE_ID = #{imageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from web_image
+    where IMAGE_ID = #{imageId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fh.entity.Image">
+    insert into web_image (IMAGE_ID, TITLE, IMGURL, 
+      TOURL, TYPE, FORDER, 
+      BZ)
+    values (#{imageId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+      #{tourl,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{forder,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR})
+  </insert>
 	
 	<!-- 新增-->
 	<insert id="save" parameterType="pd">
@@ -112,6 +139,4 @@
                  #{item}
 		</foreach>
 	</delete>
-	
-	<!-- fh313596790qq(青苔) -->
 </mapper>
